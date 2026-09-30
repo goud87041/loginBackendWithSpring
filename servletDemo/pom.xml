@@ -33,6 +33,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- JSP support (Jasper compiler for embedded Tomcat) -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+
 		<!-- Test starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

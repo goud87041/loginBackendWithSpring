@@ -2,6 +2,7 @@ package com.learn.servlet;
 
 import java.io.IOException;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,15 +18,15 @@ public class FirstServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("uname");
-        String city = req.getParameter("ucity");
-        PrintWriter out = resp.getWriter();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("in First servlet controller ");
 
-        out.println("your name is " + name);
-        out.println("your city is " + city);
+        RequestDispatcher dis = request.getRequestDispatcher("/secondServlet");
+        dis.forward(request, response);
 
-        out.close();
+        
+        
+        // out.close();
 
     }
 }

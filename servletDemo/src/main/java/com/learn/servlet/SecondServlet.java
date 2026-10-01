@@ -2,6 +2,7 @@ package com.learn.servlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.ServletException;
 import java.io.IOException;
 
@@ -17,6 +18,13 @@ public class SecondServlet extends  HttpServlet{
        
         try {
             PrintWriter writer = response.getWriter();
+            HttpSession session = request.getSession(false);
+            String name = (String) session.getAttribute("name");
+            String city = (String) session.getAttribute("city"); 
+
+            writer.println("Name : "+ name);
+            writer.println("City : "+ city);
+
             writer.println("<h1>this is second servlet </h1>");            
         } catch (Exception e) {
             // TODO: handle exception

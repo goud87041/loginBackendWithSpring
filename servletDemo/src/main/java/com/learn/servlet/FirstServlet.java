@@ -8,6 +8,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.PrintWriter;
 
 @WebServlet("/firstServlet")
@@ -18,15 +20,34 @@ public class FirstServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("in First servlet controller ");
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    response.setContentType("text/html");
 
-        RequestDispatcher dis = request.getRequestDispatcher("/secondServlet");
-        dis.forward(request, response);
+    RequestDispatcher resDispathcer = request.getRequestDispatcher("/secondServlet");
+    String name = request.getParameter("uname");
+    String city = request.getParameter("ucity");
 
-        
-        
-        // out.close();
 
-    }
+    
+    HttpSession session = request.getSession();
+    session.setAttribute("name", name);
+    session.setAttribute("city", city);
+
+    PrintWriter writer = response.getWriter();
+    writer.println("<h1>this is first servlet </h1>");
+
+
+   
+    resDispathcer.forward(request , response);
+
+    writer.close();
+
+    
+
+
+
+
+    
+}
+
 }

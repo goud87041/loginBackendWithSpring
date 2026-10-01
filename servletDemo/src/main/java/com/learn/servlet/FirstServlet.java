@@ -2,11 +2,14 @@ package com.learn.servlet;
 
 import java.io.IOException;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.PrintWriter;
 
 @WebServlet("/firstServlet")
@@ -17,15 +20,34 @@ public class FirstServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("uname");
-        String city = req.getParameter("ucity");
-        PrintWriter out = resp.getWriter();
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    response.setContentType("text/html");
 
-        out.println("your name is " + name);
-        out.println("your city is " + city);
+    RequestDispatcher resDispathcer = request.getRequestDispatcher("/secondServlet");
+    String name = request.getParameter("uname");
+    String city = request.getParameter("ucity");
 
-        out.close();
 
-    }
+    
+    HttpSession session = request.getSession();
+    session.setAttribute("name", name);
+    session.setAttribute("city", city);
+
+    PrintWriter writer = response.getWriter();
+    writer.println("<h1>this is first servlet </h1>");
+
+
+   
+    resDispathcer.forward(request , response);
+
+    writer.close();
+
+    
+
+
+
+
+    
+}
+
 }
